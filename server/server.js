@@ -59,7 +59,7 @@ Todo.findByIdAndRemove(id).then((todo)=>{
   res.status(400).send();
 });
 });
-app.pacth('/todos/:id',(req,res)=>{
+app.patch('/todos/:id',(req,res)=>{
   var id=req.params.id;
   var body=_.pick(req.body,['text','completed']);
   if(!ObjectID.isValid(id)){
@@ -69,7 +69,7 @@ app.pacth('/todos/:id',(req,res)=>{
     body.completedAt=new Date().getTime();
   }else{
     body.completed=false;
-    body.completed=null;
+    body.completedAt=null;
   }
 
   Todo.findByIdAndUpdate(id,{$set: body},{new :true}).then((todo)=>{
@@ -79,7 +79,7 @@ if(!todo){
 res.send({todo});
   }).catch((e)=>{
     res.status(400).send();
-  }
+  })
 
 });
 
