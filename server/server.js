@@ -5,6 +5,7 @@ const {ObjectID}=require('mongodb');
 var {mongoose}=require('./db/mongoose');
 var {Todo}=require('./models/todo');
 var {User}=require('./models/user');
+var {authenticate}=require('./middleware/authenticate');
 const _=require('lodash');
 var app=express();
 const port=process.env.PORT ;
@@ -98,6 +99,11 @@ user.save().then(()=>{
 })
 });
 
+
+
+app.get('/users/me',authenticate,(req,res)=>{
+res.send(req.user);
+})
 
 
 
